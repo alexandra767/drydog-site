@@ -3,112 +3,1066 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>DryDog — Sober Streak Pet</title>
-<meta name="description" content="A pup that grows stronger every day you stay sober. Recovery, with a buddy. Free on iPhone, Apple Watch, and iPad." />
+<title>DryDog — A quiet companion for the days that are hard.</title>
+<meta name="description" content="DryDog turns your sobriety streak into a Tamagotchi-style pet that grows the longer you stay clean. iPhone + Apple Watch. No accounts, no cloud, no judgement." />
+<meta name="theme-color" content="#f6ecd8" />
+<meta property="og:title" content="DryDog" />
+<meta property="og:description" content="A quiet companion for the days that are hard. Sober-streak Tamagotchi for iPhone." />
+<meta property="og:image" content="https://alexandra767.github.io/drydog-site/img/01-home.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=DM+Sans:opsz,wght@9..40,300..700&display=swap" rel="stylesheet">
 <style>
-  * { box-sizing: border-box; }
+  :root {
+    --paper:        #f6ecd8;
+    --paper-warm:   #f1e2c4;
+    --paper-deep:   #e8d2a8;
+    --ink:          #2a1709;
+    --ink-soft:     #4a2f1b;
+    --terracotta:   #c45a37;
+    --sunset:       #dd5e44;
+    --peach:        #f4ad7f;
+    --ember:        #a23a1f;
+    --sage:         #7a8f6a;
+    --gold:         #c8923a;
+    --display: "Fraunces", "Cormorant Garamond", Georgia, serif;
+    --body:    "DM Sans", -apple-system, system-ui, sans-serif;
+    --measure: 68ch;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-    margin: 0;
-    background: linear-gradient(135deg, #ff9933 0%, #ff5a82 100%);
-    color: #fff;
-    min-height: 100vh;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    position: relative;
   }
-  .container {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 64px 24px;
-    text-align: center;
+  /* Paper grain overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.07;
+    mix-blend-mode: multiply;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
   }
-  .icon {
-    width: 140px;
-    height: 140px;
-    border-radius: 32px;
-    background: rgba(255,255,255,0.15);
+  /* Soft vignette warmth */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background: radial-gradient(circle at 50% -10%, rgba(244, 173, 127, 0.35) 0%, rgba(246, 236, 216, 0) 55%);
+  }
+
+  ::selection { background: var(--terracotta); color: var(--paper); }
+
+  /* ===== NAV ===== */
+  nav {
+    position: relative;
+    z-index: 10;
+    padding: 28px 6vw 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--display);
+    font-weight: 600;
+  }
+  nav .mark {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+  }
+  nav .mark .seal {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--paper);
+    display: inline-grid; place-items: center;
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 18px;
+    transform: rotate(-8deg);
+  }
+  nav ul {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+    font-family: var(--body);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  nav a { color: var(--ink-soft); text-decoration: none; transition: color .2s; }
+  nav a:hover { color: var(--terracotta); }
+  @media (max-width: 720px) { nav ul { display: none; } }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    padding: 60px 6vw 80px;
+    z-index: 5;
+  }
+  .hero .issue {
+    font-family: var(--body);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    opacity: 0.7;
+    margin-bottom: 28px;
+  }
+  .hero .issue::before {
+    content: "❋";
+    margin-right: 10px;
+    color: var(--terracotta);
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 5vw;
+    align-items: center;
+  }
+  @media (max-width: 920px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 60px; }
+  }
+
+  h1.hero-title {
+    font-family: var(--display);
+    font-variation-settings: "opsz" 144, "SOFT" 0, "WONK" 1;
+    font-weight: 500;
+    font-size: clamp(48px, 8.5vw, 128px);
+    line-height: 0.92;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+  }
+  h1.hero-title em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--terracotta);
+    font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+  }
+  h1.hero-title .underline {
+    position: relative;
+    display: inline-block;
+  }
+  h1.hero-title .underline::after {
+    content: "";
+    position: absolute;
+    left: -2%;
+    right: -2%;
+    bottom: 0.08em;
+    height: 0.18em;
+    background: var(--peach);
+    z-index: -1;
+    opacity: 0.7;
+    transform: skew(-3deg);
+  }
+  .hero-lede {
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: clamp(20px, 1.6vw, 23px);
+    line-height: 1.5;
+    color: var(--ink-soft);
+    max-width: 30em;
+    margin-top: 36px;
+  }
+  .hero-cta {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    margin-top: 44px;
+    flex-wrap: wrap;
+  }
+  .cta-primary {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    font-size: 80px;
-    margin-bottom: 32px;
-    backdrop-filter: blur(8px);
-  }
-  h1 { font-size: 48px; margin: 0 0 12px; font-weight: 800; }
-  .tagline { font-size: 22px; opacity: 0.95; margin: 0 0 40px; }
-  .features {
-    background: rgba(255,255,255,0.12);
-    backdrop-filter: blur(12px);
-    border-radius: 24px;
-    padding: 32px;
-    text-align: left;
-    margin: 0 auto 40px;
-  }
-  .features ul { list-style: none; padding: 0; margin: 0; }
-  .features li {
-    padding: 8px 0;
-    font-size: 16px;
-  }
-  .features li::before { content: "✓ "; font-weight: bold; }
-  .download {
-    display: inline-block;
-    background: #fff;
-    color: #ff5a82;
-    padding: 16px 40px;
+    gap: 12px;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 18px 28px;
     border-radius: 999px;
-    font-weight: 700;
-    font-size: 18px;
+    font-family: var(--body);
+    font-weight: 500;
+    font-size: 16px;
     text-decoration: none;
-    margin-top: 16px;
+    transition: transform .2s, background .2s;
   }
-  footer {
-    margin-top: 48px;
-    opacity: 0.8;
-    font-size: 14px;
+  .cta-primary:hover { background: var(--terracotta); transform: translateY(-2px); }
+  .cta-primary svg { width: 18px; height: 18px; }
+  .cta-note {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 15px;
+    color: var(--ink-soft);
+    opacity: 0.85;
   }
-  footer a { color: #fff; text-decoration: underline; }
-  .disclaimer {
+
+  /* Hero phones */
+  .hero-stage {
+    position: relative;
+    height: clamp(420px, 56vw, 720px);
+    perspective: 1400px;
+  }
+  .phone {
+    position: absolute;
+    border-radius: 42px;
+    overflow: hidden;
+    box-shadow:
+      0 1px 0 rgba(255, 240, 215, 0.6) inset,
+      0 30px 60px -20px rgba(42, 23, 9, 0.35),
+      0 8px 18px -8px rgba(42, 23, 9, 0.22);
+    background: var(--ink);
+    border: 4px solid #1a0e05;
+  }
+  .phone img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .phone.front {
+    width: 56%;
+    aspect-ratio: 1320 / 2868;
+    right: 8%;
+    top: 4%;
+    transform: rotate(4deg);
+    z-index: 3;
+    animation: floatA 9s ease-in-out infinite;
+  }
+  .phone.back {
+    width: 48%;
+    aspect-ratio: 1320 / 2868;
+    left: 0;
+    top: 18%;
+    transform: rotate(-6deg);
+    z-index: 2;
+    opacity: 0.95;
+    animation: floatB 11s ease-in-out infinite;
+  }
+  @keyframes floatA {
+    0%, 100% { transform: rotate(4deg) translateY(0); }
+    50% { transform: rotate(4deg) translateY(-14px); }
+  }
+  @keyframes floatB {
+    0%, 100% { transform: rotate(-6deg) translateY(0); }
+    50% { transform: rotate(-6deg) translateY(12px); }
+  }
+
+  /* Big floating numeral */
+  .streak-numeral {
+    position: absolute;
+    left: 38%;
+    top: -4%;
+    font-family: var(--display);
+    font-style: italic;
+    font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+    font-weight: 300;
+    font-size: clamp(96px, 16vw, 220px);
+    color: var(--ember);
+    line-height: 1;
+    z-index: 4;
+    pointer-events: none;
+    text-shadow: 0 2px 0 var(--paper);
+  }
+  .streak-numeral sup {
+    font-family: var(--body);
+    font-size: 0.18em;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-shadow: none;
+    vertical-align: 1.2em;
+    margin-left: 0.4em;
+  }
+
+  /* ===== TICKER ===== */
+  .ticker {
+    border-top: 1px solid rgba(42, 23, 9, 0.18);
+    border-bottom: 1px solid rgba(42, 23, 9, 0.18);
+    padding: 22px 0;
+    overflow: hidden;
+    position: relative;
+    z-index: 5;
+    background: var(--paper-warm);
+  }
+  .ticker-track {
+    display: flex;
+    gap: 64px;
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(22px, 3.5vw, 38px);
+    white-space: nowrap;
+    animation: scroll 38s linear infinite;
+    color: var(--ink);
+  }
+  .ticker-track span::after {
+    content: "✦";
+    margin-left: 64px;
+    color: var(--terracotta);
+    font-style: normal;
+  }
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ===== SECTION SHARED ===== */
+  section {
+    position: relative;
+    padding: 120px 6vw;
+    z-index: 5;
+  }
+  .eyebrow {
+    font-family: var(--body);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .eyebrow .num {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 16px;
+    margin-right: 10px;
+    color: var(--ink);
+  }
+  h2 {
+    font-family: var(--display);
+    font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 1;
+    font-weight: 500;
+    font-size: clamp(36px, 5vw, 76px);
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    max-width: 14ch;
+  }
+  h2 em {
+    font-style: italic;
+    color: var(--terracotta);
+    font-weight: 400;
+  }
+  .lede {
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: clamp(18px, 1.4vw, 21px);
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 36em;
+    margin-top: 24px;
+  }
+
+  /* ===== PULL QUOTE ===== */
+  .pullquote {
+    text-align: center;
+    padding: 140px 6vw 120px;
+    border-top: 1px solid rgba(42, 23, 9, 0.15);
+  }
+  .pullquote blockquote {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 300;
+    font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+    font-size: clamp(36px, 6.4vw, 92px);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    max-width: 22ch;
+    margin: 0 auto;
+  }
+  .pullquote blockquote .glyph {
+    font-style: normal;
+    color: var(--terracotta);
+    display: inline-block;
+    transform: translateY(0.18em);
+    margin-right: 0.08em;
+  }
+  .pullquote cite {
+    display: block;
+    margin-top: 40px;
+    font-family: var(--body);
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-style: normal;
+  }
+
+  /* ===== FEATURES SPREAD ===== */
+  .spread {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 8vw;
+    align-items: center;
+  }
+  .spread.flip { grid-template-columns: 1fr 1.1fr; }
+  .spread.flip .copy { order: 2; }
+  .spread.flip .visual { order: 1; }
+  @media (max-width: 920px) {
+    .spread, .spread.flip { grid-template-columns: 1fr; gap: 60px; }
+    .spread.flip .copy { order: unset; }
+    .spread.flip .visual { order: unset; }
+  }
+
+  .copy .marker {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  .copy .marker .roman {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 28px;
+    color: var(--terracotta);
+  }
+  .copy .marker .label {
+    font-family: var(--body);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+
+  .feature-list {
+    list-style: none;
     margin-top: 32px;
-    background: rgba(0,0,0,0.15);
-    padding: 16px;
-    border-radius: 12px;
+    border-top: 1px solid rgba(42, 23, 9, 0.18);
+  }
+  .feature-list li {
+    border-bottom: 1px solid rgba(42, 23, 9, 0.18);
+    padding: 18px 0;
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    font-family: var(--body);
+    font-size: 16px;
+    color: var(--ink);
+  }
+  .feature-list li .glyph {
+    font-family: var(--display);
+    font-style: italic;
+    color: var(--terracotta);
+    font-size: 22px;
+    width: 22px;
+    flex-shrink: 0;
+  }
+
+  /* Visual frames */
+  .frame {
+    position: relative;
+    aspect-ratio: 1320 / 2868;
+    max-width: 380px;
+    margin: 0 auto;
+    border-radius: 46px;
+    overflow: hidden;
+    background: var(--ink);
+    border: 5px solid #15090a;
+    box-shadow:
+      0 40px 80px -30px rgba(42, 23, 9, 0.4),
+      0 12px 24px -8px rgba(42, 23, 9, 0.25);
+  }
+  .frame img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .frame.tilt-l { transform: rotate(-4deg); }
+  .frame.tilt-r { transform: rotate(4deg); }
+  .frame-caption {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 15px;
+    color: var(--ink-soft);
+    text-align: center;
+    margin-top: 28px;
+    max-width: 28em;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .frame-caption::before {
+    content: "Fig. ";
+    font-family: var(--body);
+    font-style: normal;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 11px;
+    color: var(--terracotta);
+    margin-right: 6px;
+  }
+
+  /* Frame with tape strip */
+  .frame-wrap { position: relative; }
+  .tape {
+    position: absolute;
+    width: 90px;
+    height: 22px;
+    background: rgba(244, 173, 127, 0.65);
+    border: 1px solid rgba(196, 90, 55, 0.3);
+    z-index: 4;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  }
+  .tape.t1 { top: -8px; left: 14%; transform: rotate(-10deg); }
+  .tape.t2 { top: -8px; right: 18%; transform: rotate(8deg); }
+
+  /* ===== WATCH SECTION ===== */
+  .watch-spread {
+    background: var(--paper-warm);
+    padding: 140px 6vw;
+    border-top: 1px solid rgba(42, 23, 9, 0.15);
+    border-bottom: 1px solid rgba(42, 23, 9, 0.15);
+  }
+  .watch-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8vw;
+    align-items: center;
+  }
+  @media (max-width: 920px) { .watch-grid { grid-template-columns: 1fr; gap: 60px; } }
+
+  .watch-frame {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    margin: 0 auto;
+    aspect-ratio: 416/496;
+    background: #0a0a0a;
+    border-radius: 56px;
+    padding: 18px;
+    box-shadow:
+      0 30px 80px -20px rgba(42, 23, 9, 0.45),
+      inset 0 1px 0 rgba(255,255,255,0.08);
+    overflow: hidden;
+  }
+  .watch-frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 56px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 35%);
+    pointer-events: none;
+  }
+  .watch-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 38px;
+  }
+  .watch-frame .crown {
+    position: absolute;
+    right: -6px;
+    top: 28%;
+    width: 6px;
+    height: 32px;
+    background: #2a2a2a;
+    border-radius: 0 4px 4px 0;
+  }
+
+  /* ===== PRICING ===== */
+  .pricing {
+    padding: 140px 6vw;
+  }
+  .pricing-head {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+  .price-cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
+    max-width: 880px;
+    margin: 0 auto;
+  }
+  @media (max-width: 720px) { .price-cards { grid-template-columns: 1fr; } }
+
+  .price-card {
+    background: var(--paper-warm);
+    border: 1px solid rgba(42, 23, 9, 0.18);
+    border-radius: 26px;
+    padding: 40px 32px;
+    position: relative;
+  }
+  .price-card.free { background: var(--paper); }
+  .price-card.pro {
+    background: linear-gradient(160deg, var(--ink) 0%, #3a2110 100%);
+    color: var(--paper);
+    border-color: transparent;
+  }
+  .price-card .tier {
+    font-family: var(--body);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 600;
+    opacity: 0.8;
+  }
+  .price-card .price {
+    font-family: var(--display);
+    font-variation-settings: "opsz" 144, "SOFT" 30;
+    font-weight: 500;
+    font-size: 64px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin: 18px 0 8px;
+  }
+  .price-card .price em {
+    font-style: italic;
+    color: var(--terracotta);
+    font-weight: 400;
+  }
+  .price-card.pro .price em { color: var(--peach); }
+  .price-card .price small {
+    font-family: var(--body);
     font-size: 14px;
-    text-align: left;
+    font-weight: 400;
+    letter-spacing: 0;
+    opacity: 0.7;
+    text-transform: none;
+  }
+  .price-card ul {
+    list-style: none;
+    margin-top: 24px;
+    padding: 0;
+  }
+  .price-card li {
+    padding: 9px 0;
+    font-size: 15px;
+    border-top: 1px solid rgba(42, 23, 9, 0.1);
+  }
+  .price-card.pro li { border-top-color: rgba(255, 240, 215, 0.15); }
+  .price-card li:first-child { border-top: none; }
+  .price-card .alt-cta {
+    display: inline-block;
+    margin-top: 28px;
+    color: inherit;
+    text-decoration: none;
+    font-family: var(--display);
+    font-style: italic;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px;
+    transition: color .2s;
+  }
+  .price-card.pro .alt-cta:hover { color: var(--peach); }
+  .price-card.free .alt-cta:hover { color: var(--terracotta); }
+
+  /* ===== CRISIS BAND ===== */
+  .crisis {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 80px 6vw;
+    text-align: center;
+  }
+  .crisis-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+  .crisis-tag {
+    font-family: var(--body);
+    font-size: 12px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--peach);
+  }
+  .crisis p {
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: clamp(20px, 2vw, 26px);
+    line-height: 1.5;
+    max-width: 38em;
+  }
+  .crisis strong {
+    color: var(--peach);
+    font-weight: 500;
+    font-style: italic;
+  }
+
+  /* ===== FOOTER ===== */
+  footer.colophon {
+    background: var(--paper);
+    padding: 100px 6vw 60px;
+    border-top: 1px solid rgba(42, 23, 9, 0.18);
+  }
+  .colophon-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 6vw;
+    margin-bottom: 80px;
+  }
+  @media (max-width: 720px) { .colophon-grid { grid-template-columns: 1fr 1fr; gap: 40px; } }
+
+  .colophon h3 {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 18px;
+    margin-bottom: 14px;
+    color: var(--terracotta);
+  }
+  .colophon ul { list-style: none; }
+  .colophon li { padding: 4px 0; font-size: 14px; }
+  .colophon a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color .2s;
+  }
+  .colophon a:hover { border-bottom-color: var(--ink); }
+
+  .colophon .sign {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 300;
+    font-variation-settings: "opsz" 144, "SOFT" 100;
+    font-size: 36px;
+    color: var(--ink);
+    line-height: 1.1;
+    max-width: 16ch;
+  }
+  .meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-top: 24px;
+    border-top: 1px solid rgba(42, 23, 9, 0.18);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* Scroll-reveal */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .phone, .ticker-track { animation: none !important; }
   }
 </style>
 </head>
 <body>
-  <div class="container">
-    <div class="icon">🐶</div>
-    <h1>DryDog</h1>
-    <p class="tagline">A pup that grows stronger every day you stay sober.</p>
 
-    <div class="features">
-      <ul>
-        <li>5 breeds, 7 life stages, hand-drawn pet art</li>
-        <li>One-tap daily check-in — sober, slip, or freeze day</li>
-        <li>1 free freeze day a month bridges a missed check-in</li>
-        <li>Multi-pet: track multiple substances in parallel and switch with a tap</li>
-        <li>Memory book — every check-in and milestone, chronologically</li>
-        <li>Pattern insights — your longest streak, common trigger, vulnerable weekday</li>
-        <li>Apple Watch + Live Activity + Dynamic Island</li>
-        <li>Privacy mode: alternate Notes icon disguise, background blur, Face ID lock</li>
-        <li>Crisis resources (988) one tap from every screen</li>
-        <li>Quit anything: alcohol, nicotine, cannabis, sugar, or anything you name yourself</li>
+<nav>
+  <div class="mark">
+    <span class="seal">D</span>
+    DryDog
+  </div>
+  <ul>
+    <li><a href="#why">Why</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#crisis">Crisis</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <p class="issue reveal">Vol. 2.9 · For iPhone &amp; Apple Watch · iOS 18+</p>
+
+  <div class="hero-grid">
+    <div>
+      <h1 class="hero-title reveal">
+        Stay sober.<br/>
+        Keep your <em>dog</em> <span class="underline">alive.</span>
+      </h1>
+      <p class="hero-lede reveal">
+        DryDog turns your sobriety streak into a Tamagotchi-style pet that grows the longer you stay clean — and wilts if you slip. No shame, no judgement, no medical claims. Just a quiet companion for the days that are hard.
+      </p>
+      <div class="hero-cta reveal">
+        <a class="cta-primary" href="https://apps.apple.com/us/app/drydog-sober-streak-pet/id6769381741" aria-label="Download on the App Store">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.05 12.04c-.03-2.95 2.41-4.36 2.52-4.43-1.38-2.01-3.52-2.29-4.28-2.32-1.82-.19-3.55 1.07-4.47 1.07-.92 0-2.34-1.04-3.85-1.01-1.98.03-3.81 1.15-4.83 2.92-2.06 3.57-.53 8.85 1.49 11.75.99 1.42 2.16 3.02 3.69 2.96 1.48-.06 2.04-.96 3.83-.96 1.79 0 2.29.96 3.85.93 1.59-.03 2.6-1.45 3.57-2.88 1.13-1.65 1.59-3.25 1.61-3.34-.04-.02-3.08-1.18-3.13-4.69zM14.27 3.62c.81-.99 1.36-2.36 1.21-3.72-1.17.05-2.59.78-3.43 1.76-.75.87-1.41 2.26-1.23 3.6 1.3.1 2.64-.66 3.45-1.64z"/>
+          </svg>
+          Download on the App Store
+        </a>
+        <span class="cta-note">Free. No accounts. No ads.</span>
+      </div>
+    </div>
+
+    <div class="hero-stage" aria-hidden="true">
+      <span class="streak-numeral">65<sup>days</sup></span>
+      <div class="phone back"><img src="img/02-pet.png" alt="" /></div>
+      <div class="phone front"><img src="img/01-home.png" alt="DryDog Home — Bud the beagle is 65 days sober" /></div>
+    </div>
+  </div>
+</header>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>One tap a day</span>
+    <span>Five life stages</span>
+    <span>Five breeds</span>
+    <span>A pet that grows with you</span>
+    <span>Streak freeze · one a month</span>
+    <span>Memory book</span>
+    <span>Pattern insights</span>
+    <span>Live Activity &amp; Dynamic Island</span>
+    <span>Apple Watch companion</span>
+    <span>One tap a day</span>
+    <span>Five life stages</span>
+    <span>Five breeds</span>
+    <span>A pet that grows with you</span>
+    <span>Streak freeze · one a month</span>
+    <span>Memory book</span>
+    <span>Pattern insights</span>
+    <span>Live Activity &amp; Dynamic Island</span>
+    <span>Apple Watch companion</span>
+  </div>
+</div>
+
+<!-- WHY -->
+<section id="why">
+  <div class="spread">
+    <div class="copy reveal">
+      <div class="marker"><span class="roman">I.</span><span class="label">The thesis</span></div>
+      <h2>Most sobriety apps are <em>just</em> a number.</h2>
+      <p class="lede">
+        DryDog gives you something to care for — a pup that grows through seven life stages as your streak grows. Slip up and they wilt. Pick yourself back up and they bounce back. The same day, no shame. They've been waiting for you.
+      </p>
+      <ul class="feature-list">
+        <li><span class="glyph">✦</span>Seven life stages, from rescue crate to legendary.</li>
+        <li><span class="glyph">✦</span>One tap a day. Yes or no. A pet voice cheers the yes; a fresh-start sheet meets the no.</li>
+        <li><span class="glyph">✦</span>Pick what you're tracking — alcohol, nicotine, cannabis, sugar, or anything you name yourself.</li>
+        <li><span class="glyph">✦</span>The whole app rewords itself around your goal.</li>
       </ul>
     </div>
-
-    <a class="download" href="https://apps.apple.com/us/app/drydog-sober-streak-pet/id6769381741">Download on the App Store</a>
-
-    <div class="disclaimer">
-      <strong>Crisis support:</strong> If you're in crisis, call or text <strong>988</strong> — the US Suicide &amp; Crisis Lifeline. Free, confidential, 24/7. DryDog is not a substitute for professional treatment, medical advice, or therapy.
+    <div class="visual reveal">
+      <div class="frame-wrap">
+        <span class="tape t1"></span>
+        <span class="tape t2"></span>
+        <div class="frame tilt-r"><img src="img/01-home.png" alt="DryDog Home tab showing pet card, streak count, savings, and badges" /></div>
+        <p class="frame-caption">01 · Bud the Rescue Mutt, on day sixty-five.</p>
+      </div>
     </div>
-
-    <footer>
-      <a href="https://alexandra767.github.io/drydog-site/privacy.html">Privacy Policy</a> &nbsp;·&nbsp;
-      <a href="https://alexandra767.github.io/drydog-site/support.html">Support</a> &nbsp;·&nbsp;
-      <a href="mailto:alexandratitus767@gmail.com">Contact</a>
-      <br /><br />
-      © 2026 Andrew Titus
-    </footer>
   </div>
+</section>
+
+<!-- PULL QUOTE -->
+<section class="pullquote">
+  <blockquote class="reveal">
+    <span class="glyph">“</span>A quiet companion <em>for the days</em> that are hard.<span class="glyph">”</span>
+  </blockquote>
+  <cite class="reveal">— The whole pitch, in one sentence.</cite>
+</section>
+
+<!-- FEATURES SPREAD -->
+<section id="features">
+  <div class="spread flip">
+    <div class="copy reveal">
+      <div class="marker"><span class="roman">II.</span><span class="label">The work</span></div>
+      <h2>Every check-in, <em>kept</em> for you.</h2>
+      <p class="lede">
+        A memory book scrolls every check-in, freeze day, and milestone in order. Pattern insights surface your longest streak, your most common trigger, and your most vulnerable weekday — quietly, without lecturing.
+      </p>
+      <ul class="feature-list">
+        <li><span class="glyph">✦</span>Memory book — your story, chronologically.</li>
+        <li><span class="glyph">✦</span>Insights — longest streak, trigger frequency, weekday risk.</li>
+        <li><span class="glyph">✦</span>Streak freeze — one free freeze a month bridges a missed check-in.</li>
+        <li><span class="glyph">✦</span>Anniversary milestones for every meaningful day.</li>
+      </ul>
+    </div>
+    <div class="visual reveal">
+      <div class="frame-wrap">
+        <span class="tape t1"></span>
+        <div class="frame tilt-l"><img src="img/02-pet.png" alt="Growth tab showing insights, memory book, and pet growth stages" /></div>
+        <p class="frame-caption">02 · Growth — every life stage and every milestone, kept.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="spread">
+    <div class="copy reveal">
+      <div class="marker"><span class="roman">III.</span><span class="label">The proof</span></div>
+      <h2>A heatmap <em>that</em> looks like progress.</h2>
+      <p class="lede">
+        Every sober day fills a square. The grid grows greener week by week. No streaks, no leaderboards, no shareable shame metrics — just a quiet record of the days you showed up.
+      </p>
+      <ul class="feature-list">
+        <li><span class="glyph">✦</span>Multi-week calendar heatmap.</li>
+        <li><span class="glyph">✦</span>Total sober days · current streak · longest run.</li>
+        <li><span class="glyph">✦</span>Differentiate-without-color and VoiceOver-ready.</li>
+        <li><span class="glyph">✦</span>Edit today's check-in. Slips are reversible until midnight.</li>
+      </ul>
+    </div>
+    <div class="visual reveal">
+      <div class="frame-wrap">
+        <span class="tape t2"></span>
+        <div class="frame tilt-r"><img src="img/03-calendar.png" alt="History tab with calendar heatmap of sober days" /></div>
+        <p class="frame-caption">03 · 79 sober days, one slip, kept honestly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WATCH -->
+<section class="watch-spread" id="watch">
+  <div class="watch-grid">
+    <div class="reveal">
+      <div class="marker"><span class="roman">IV.</span><span class="label">On your wrist</span></div>
+      <h2>Your streak, <em>at</em> a glance.</h2>
+      <p class="lede">
+        DryDog rides along on your Apple Watch and surfaces a Live Activity on the Lock Screen and Dynamic Island. Tap the Lock Screen widget to check in without opening the app. Say <em>"Log my DryDog check-in"</em> to Siri. The fewest taps your sobriety has ever taken.
+      </p>
+      <ul class="feature-list">
+        <li><span class="glyph">✦</span>Apple Watch companion — pet, streak, and stage gauge.</li>
+        <li><span class="glyph">✦</span>Live Activity + Dynamic Island.</li>
+        <li><span class="glyph">✦</span>Lock Screen tap-to-check-in.</li>
+        <li><span class="glyph">✦</span>Siri &amp; Shortcuts — "log my DryDog check-in."</li>
+      </ul>
+    </div>
+    <div class="reveal">
+      <div class="watch-frame">
+        <div class="crown" aria-hidden="true"></div>
+        <img src="img/watch-01.png" alt="DryDog on Apple Watch Series 11 showing a young-pup sprite, 65 days sober, and a stage gauge" />
+      </div>
+      <p class="frame-caption">04 · Apple Watch Series 11 (46mm).</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVACY -->
+<section>
+  <div class="spread flip">
+    <div class="copy reveal">
+      <div class="marker"><span class="roman">V.</span><span class="label">Yours, only</span></div>
+      <h2>Privacy you <em>can</em> hold.</h2>
+      <p class="lede">
+        No accounts. No cloud. No servers. SwiftData stores everything on your device. The optional iCloud sync uses your own iCloud — we never see it. Blur the app when you background it. Disguise the icon as Notes. Face ID locks the front door.
+      </p>
+      <ul class="feature-list">
+        <li><span class="glyph">✦</span>Zero analytics, zero advertising, zero third-party SDKs.</li>
+        <li><span class="glyph">✦</span>Optional alternate "Notes" Home Screen icon disguise.</li>
+        <li><span class="glyph">✦</span>Background blur when the app isn't active.</li>
+        <li><span class="glyph">✦</span>Face ID lock on the front door.</li>
+      </ul>
+    </div>
+    <div class="visual reveal">
+      <div class="frame-wrap">
+        <span class="tape t1"></span>
+        <span class="tape t2"></span>
+        <div class="frame tilt-l"><img src="img/04-settings.png" alt="DryDog Settings showing Pro upsell, breed picker with locks, and substance options" /></div>
+        <p class="frame-caption">05 · Settings — your shape, your secrets.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="pricing-head reveal">
+    <div class="eyebrow"><span class="num">VI.</span>The numbers</div>
+    <h2 style="margin: 0 auto;">Free <em>forever.</em><br/>Pro if you want skins.</h2>
+  </div>
+  <div class="price-cards">
+    <article class="price-card free reveal">
+      <div class="tier">Free</div>
+      <div class="price"><em>$0</em><br/><small>and stays that way.</small></div>
+      <ul>
+        <li>One pet (Rescue Mutt). All seven life stages.</li>
+        <li>Daily check-in &amp; calendar heatmap.</li>
+        <li>Milestone badges, streak freeze, memory book.</li>
+        <li>Live Activity + Dynamic Island + Apple Watch.</li>
+        <li>Siri &amp; Shortcuts, Lock Screen widget.</li>
+        <li>Alcohol tracking, Face ID lock, icon disguise.</li>
+      </ul>
+      <a class="alt-cta" href="https://apps.apple.com/us/app/drydog-sober-streak-pet/id6769381741">Get DryDog →</a>
+    </article>
+    <article class="price-card pro reveal">
+      <div class="tier">DryDog Pro</div>
+      <div class="price"><em>$2.99</em><small> / month · or $14.99/year</small></div>
+      <ul>
+        <li>Four Pro breeds (Labrador, Husky, Corgi, Beagle).</li>
+        <li>Five Pro skins (Husky, Corgi, Golden, Shadow, Rainbow).</li>
+        <li>Track nicotine, cannabis, sugar, or any custom goal.</li>
+        <li>Multi-pet — more than one streak at once.</li>
+        <li>Anniversary milestones screen.</li>
+        <li>Sobriety streak keepsake — shareable PDF.</li>
+      </ul>
+      <a class="alt-cta" href="https://apps.apple.com/us/app/drydog-sober-streak-pet/id6769381741">Try Pro inside the app →</a>
+    </article>
+  </div>
+</section>
+
+<!-- CRISIS -->
+<section class="crisis" id="crisis">
+  <div class="crisis-inner">
+    <div class="crisis-tag">Crisis support</div>
+    <p>
+      If you are in crisis, call or text <strong>988</strong> — the US Suicide &amp; Crisis Lifeline. Free, confidential, twenty-four-seven.
+      DryDog is not a substitute for professional treatment, medical advice, or therapy.
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="colophon">
+  <div class="colophon-grid">
+    <div class="sign">
+      Made with care,<br/>
+      for the days <em>that are hard.</em>
+    </div>
+    <div>
+      <h3>App</h3>
+      <ul>
+        <li><a href="https://apps.apple.com/us/app/drydog-sober-streak-pet/id6769381741">App Store</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Help</h3>
+      <ul>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="mailto:alexandratitus767@gmail.com">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Legal</h3>
+      <ul>
+        <li><a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Terms (EULA)</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="meta-row">
+    <span>© 2026 Andrew Titus</span>
+    <span>iOS 18+ · Apple Watch companion</span>
+    <span>Set in Fraunces &amp; DM Sans</span>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const obs = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        obs.unobserve(e.target);
+      }
+    }
+  }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = (i % 6) * 60 + 'ms';
+    obs.observe(el);
+  });
+</script>
 </body>
 </html>
