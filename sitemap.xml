@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://alexandra767.github.io/drydog-site/</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://alexandra767.github.io/drydog-site/img/01-home.png</image:loc>
+      <image:title>DryDog Home — 65 days sober</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://alexandra767.github.io/drydog-site/img/02-pet.png</image:loc>
+      <image:title>DryDog Growth tab — life stages and memory book</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://alexandra767.github.io/drydog-site/img/03-calendar.png</image:loc>
+      <image:title>DryDog Calendar — heatmap of sober days</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://alexandra767.github.io/drydog-site/img/04-settings.png</image:loc>
+      <image:title>DryDog Settings — Pro features</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://alexandra767.github.io/drydog-site/img/watch-01.png</image:loc>
+      <image:title>DryDog on Apple Watch</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://alexandra767.github.io/drydog-site/privacy.html</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://alexandra767.github.io/drydog-site/support.html</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+</urlset>
