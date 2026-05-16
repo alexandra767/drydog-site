@@ -1,0 +1,19 @@
+{
+  "name": "DryDog — Sober Streak Pet",
+  "short_name": "DryDog",
+  "description": "A Tamagotchi-style pet that grows the longer you stay sober.",
+  "start_url": "/drydog-site/",
+  "scope": "/drydog-site/",
+  "display": "standalone",
+  "background_color": "#f6ecd8",
+  "theme_color": "#f6ecd8",
+  "lang": "en-US",
+  "icons": [
+    {
+      "src": "img/01-home.png",
+      "sizes": "1320x2868",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

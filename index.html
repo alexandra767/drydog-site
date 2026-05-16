@@ -20,6 +20,8 @@
 <meta property="og:title" content="DryDog — Sober Streak Pet" />
 <meta property="og:description" content="A Tamagotchi for whatever you're quitting. Your pup grows the longer you stick with it, wilts if you slip, bounces back when you do. Free on iPhone + Apple Watch." />
 <meta property="og:image" content="https://alexandra767.github.io/drydog-site/img/01-home.png" />
+<meta property="og:image:secure_url" content="https://alexandra767.github.io/drydog-site/img/01-home.png" />
+<meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1320" />
 <meta property="og:image:height" content="2868" />
 <meta property="og:image:alt" content="DryDog Home tab — a beagle pup on day sixty-five sober" />
@@ -39,37 +41,114 @@
 <link rel="icon" type="image/png" sizes="32x32" href="img/01-home.png" />
 <link rel="apple-touch-icon" href="img/01-home.png" />
 
+<!-- PWA manifest — enables Add to Home Screen on Android/Chrome -->
+<link rel="manifest" href="manifest.json" />
+
+<!-- Search engine verification placeholders. Replace CONTENT after you verify the site
+     in each tool's console. Leaving the meta tags in place is harmless. -->
+<!-- <meta name="google-site-verification" content="REPLACE_WITH_GSC_TOKEN" /> -->
+<!-- <meta name="msvalidate.01" content="REPLACE_WITH_BING_TOKEN" /> -->
+
 <!-- Structured data: tells Google this is an iOS app, surfaces ratings/price in SERP -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "MobileApplication",
-  "name": "DryDog: Sober Streak Pet",
-  "operatingSystem": "iOS 18.0",
-  "applicationCategory": "HealthApplication",
-  "applicationSubCategory": "Habit & Recovery Tracking",
-  "description": "A Tamagotchi-style pet that grows the longer you stay sober. Track alcohol, nicotine, cannabis, sugar, or any custom quit-goal. Includes Apple Watch companion, Live Activity, widgets, and Face ID lock. On-device, no accounts, no analytics.",
-  "url": "https://alexandra767.github.io/drydog-site/",
-  "downloadUrl": "https://apps.apple.com/us/app/drydog-sober-streak-pet/id6769381741",
-  "installUrl": "https://apps.apple.com/us/app/drydog-sober-streak-pet/id6769381741",
-  "image": "https://alexandra767.github.io/drydog-site/img/01-home.png",
-  "screenshot": [
-    "https://alexandra767.github.io/drydog-site/img/01-home.png",
-    "https://alexandra767.github.io/drydog-site/img/02-pet.png",
-    "https://alexandra767.github.io/drydog-site/img/03-calendar.png",
-    "https://alexandra767.github.io/drydog-site/img/04-settings.png",
-    "https://alexandra767.github.io/drydog-site/img/watch-01.png"
-  ],
-  "offers": [
-    { "@type": "Offer", "name": "Free", "price": "0.00", "priceCurrency": "USD" },
-    { "@type": "Offer", "name": "DryDog Pro Monthly", "price": "2.99", "priceCurrency": "USD", "category": "subscription" },
-    { "@type": "Offer", "name": "DryDog Pro Yearly", "price": "14.99", "priceCurrency": "USD", "category": "subscription" }
-  ],
-  "author": {
-    "@type": "Person",
-    "name": "Andrew Titus"
-  },
-  "datePublished": "2026-05-16"
+  "@graph": [
+    {
+      "@type": "MobileApplication",
+      "@id": "https://alexandra767.github.io/drydog-site/#app",
+      "name": "DryDog: Sober Streak Pet",
+      "alternateName": "DryDog",
+      "operatingSystem": "iOS 18.0",
+      "applicationCategory": "HealthApplication",
+      "applicationSubCategory": "Habit & Recovery Tracking",
+      "description": "A Tamagotchi-style pet that grows the longer you stay sober. Track alcohol, nicotine, cannabis, sugar, or any custom quit-goal. Includes Apple Watch companion, Live Activity, widgets, and Face ID lock. On-device, no accounts, no analytics.",
+      "url": "https://alexandra767.github.io/drydog-site/",
+      "downloadUrl": "https://apps.apple.com/us/app/drydog-sober-streak-pet/id6769381741",
+      "installUrl": "https://apps.apple.com/us/app/drydog-sober-streak-pet/id6769381741",
+      "image": "https://alexandra767.github.io/drydog-site/img/01-home.png",
+      "screenshot": [
+        "https://alexandra767.github.io/drydog-site/img/01-home.png",
+        "https://alexandra767.github.io/drydog-site/img/02-pet.png",
+        "https://alexandra767.github.io/drydog-site/img/03-calendar.png",
+        "https://alexandra767.github.io/drydog-site/img/04-settings.png",
+        "https://alexandra767.github.io/drydog-site/img/watch-01.png"
+      ],
+      "offers": [
+        { "@type": "Offer", "name": "Free", "price": "0.00", "priceCurrency": "USD" },
+        { "@type": "Offer", "name": "DryDog Pro Monthly", "price": "2.99", "priceCurrency": "USD", "category": "subscription" },
+        { "@type": "Offer", "name": "DryDog Pro Yearly", "price": "14.99", "priceCurrency": "USD", "category": "subscription" }
+      ],
+      "author": { "@id": "https://alexandra767.github.io/drydog-site/#person" },
+      "publisher": { "@id": "https://alexandra767.github.io/drydog-site/#person" },
+      "datePublished": "2026-05-16",
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://alexandra767.github.io/drydog-site/#website",
+      "url": "https://alexandra767.github.io/drydog-site/",
+      "name": "DryDog",
+      "description": "A quit-tracking Tamagotchi pet for iPhone and Apple Watch.",
+      "publisher": { "@id": "https://alexandra767.github.io/drydog-site/#person" },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://alexandra767.github.io/drydog-site/#person",
+      "name": "Andrew Titus",
+      "url": "https://gigledger.org/",
+      "sameAs": [
+        "https://apps.apple.com/us/developer/andrew-titus/id1707920797"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://alexandra767.github.io/drydog-site/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What does DryDog cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "DryDog is free to download. DryDog Pro is $2.99 per month or $14.99 per year and unlocks five pet skins, four extra breeds, multi-substance tracking, multi-pet, and a sobriety streak keepsake PDF. Everything that matters for recovery — daily check-in, calendar heatmap, memory book, streak freeze, Apple Watch, Live Activity, widgets, Face ID lock, Siri shortcut — is free."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What can I track with DryDog?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Anything you're quitting. The free tier covers alcohol. DryDog Pro unlocks nicotine, cannabis, sugar, and a custom text field for whatever you name yourself. The whole app rewords itself around your goal — 'sober today?', 'nicotine-free today?', 'clean today?', or your own."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does DryDog collect any data?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. DryDog has no accounts, no servers, no analytics, and no advertising. SwiftData stores everything locally on your iPhone. The optional iCloud sync uses your own iCloud account — the developer never sees your data."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens when I slip?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Your pup wilts but does not die. A fresh-start sheet appears with kind copy, your peak streak is preserved, and you can pick yourself up the next day. You also get one free 'streak freeze' day per calendar month to bridge a missed check-in."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is DryDog a substitute for treatment?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. DryDog is a personal tracking tool. It is not medical treatment, therapy, or a substitute for professional support. If you are in crisis, call or text 988 (US) or your local emergency line."
+          }
+        }
+      ]
+    }
+  ]
 }
 </script>
 
@@ -859,8 +938,18 @@
 
     <div class="hero-stage" aria-hidden="true">
       <span class="streak-numeral">65<sup>days</sup></span>
-      <div class="phone back"><img src="img/02-pet.png" alt="DryDog Growth tab — life stages and memory book" width="660" height="1434" fetchpriority="low" /></div>
-      <div class="phone front"><img src="img/01-home.png" alt="DryDog Home — Bud the rescue mutt at 65 days sober, savings tile, badges" width="660" height="1434" fetchpriority="high" /></div>
+      <div class="phone back">
+        <picture>
+          <source srcset="img/02-pet.webp" type="image/webp" />
+          <img src="img/02-pet.png" alt="DryDog Growth tab — life stages and memory book" width="660" height="1434" fetchpriority="low" />
+        </picture>
+      </div>
+      <div class="phone front">
+        <picture>
+          <source srcset="img/01-home.webp" type="image/webp" />
+          <img src="img/01-home.png" alt="DryDog Home — Bud the rescue mutt at 65 days sober, savings tile, badges" width="660" height="1434" fetchpriority="high" />
+        </picture>
+      </div>
     </div>
   </div>
 </header>
@@ -909,7 +998,12 @@
       <div class="frame-wrap">
         <span class="tape t1"></span>
         <span class="tape t2"></span>
-        <div class="frame tilt-r"><img src="img/01-home.png" alt="DryDog Home tab showing pet card, streak count, savings, and badges" width="660" height="1434" loading="lazy" /></div>
+        <div class="frame tilt-r">
+          <picture>
+            <source srcset="img/01-home.webp" type="image/webp" />
+            <img src="img/01-home.png" alt="DryDog Home tab showing pet card, streak count, savings, and badges" width="660" height="1434" loading="lazy" />
+          </picture>
+        </div>
         <p class="frame-caption">01 · Bud the Rescue Mutt, on day sixty-five.</p>
       </div>
     </div>
@@ -943,7 +1037,12 @@
     <div class="visual reveal">
       <div class="frame-wrap">
         <span class="tape t1"></span>
-        <div class="frame tilt-l"><img src="img/02-pet.png" alt="Growth tab showing insights, memory book, and pet growth stages" width="660" height="1434" loading="lazy" /></div>
+        <div class="frame tilt-l">
+          <picture>
+            <source srcset="img/02-pet.webp" type="image/webp" />
+            <img src="img/02-pet.png" alt="Growth tab showing insights, memory book, and pet growth stages" width="660" height="1434" loading="lazy" />
+          </picture>
+        </div>
         <p class="frame-caption">02 · Growth — every life stage and every milestone, kept.</p>
       </div>
     </div>
@@ -968,7 +1067,12 @@
     <div class="visual reveal">
       <div class="frame-wrap">
         <span class="tape t2"></span>
-        <div class="frame tilt-r"><img src="img/03-calendar.png" alt="History tab with calendar heatmap of sober days" width="660" height="1434" loading="lazy" /></div>
+        <div class="frame tilt-r">
+          <picture>
+            <source srcset="img/03-calendar.webp" type="image/webp" />
+            <img src="img/03-calendar.png" alt="History tab with calendar heatmap of sober days" width="660" height="1434" loading="lazy" />
+          </picture>
+        </div>
         <p class="frame-caption">03 · 79 sober days, one slip, kept honestly.</p>
       </div>
     </div>
@@ -994,7 +1098,10 @@
     <div class="reveal">
       <div class="watch-frame">
         <div class="crown" aria-hidden="true"></div>
-        <img src="img/watch-01.png" alt="DryDog on Apple Watch Series 11 showing a young-pup sprite, 65 days sober, and a stage gauge" width="416" height="496" loading="lazy" />
+        <picture>
+          <source srcset="img/watch-01.webp" type="image/webp" />
+          <img src="img/watch-01.png" alt="DryDog on Apple Watch Series 11 showing a young-pup sprite, 65 days sober, and a stage gauge" width="416" height="496" loading="lazy" />
+        </picture>
       </div>
       <p class="frame-caption">04 · Apple Watch Series 11 (46mm).</p>
     </div>
@@ -1021,7 +1128,12 @@
       <div class="frame-wrap">
         <span class="tape t1"></span>
         <span class="tape t2"></span>
-        <div class="frame tilt-l"><img src="img/04-settings.png" alt="DryDog Settings showing Pro upsell, breed picker with locks, and substance options" width="660" height="1434" loading="lazy" /></div>
+        <div class="frame tilt-l">
+          <picture>
+            <source srcset="img/04-settings.webp" type="image/webp" />
+            <img src="img/04-settings.png" alt="DryDog Settings showing Pro upsell, breed picker with locks, and substance options" width="660" height="1434" loading="lazy" />
+          </picture>
+        </div>
         <p class="frame-caption">05 · Settings — your shape, your secrets.</p>
       </div>
     </div>
